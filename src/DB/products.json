@@ -1,0 +1,222 @@
+[
+    {
+        "id": 1,
+        "title": "Camiseta Básica",
+        "description": "Camiseta de algodón 100% con un corte clásico.",
+        "code": "TSHIRT001",
+        "price": 12.99,
+        "status": true,
+        "stock": 200,
+        "category": "shirt",
+        "thumbnail": ""
+    },
+    {
+        "id": 2,
+        "title": "Pantalones Jeans",
+        "description": "Pantalones de mezclilla de corte ajustado.",
+        "code": "PANTS001",
+        "price": 29.99,
+        "status": true,
+        "stock": 150,
+        "category": "pants",
+        "thumbnail": ""
+    },
+    {
+        "id": 3,
+        "title": "Zapatillas Deportivas",
+        "description": "Zapatillas cómodas para correr y hacer ejercicio.",
+        "code": "SHOES001",
+        "price": 49.99,
+        "status": true,
+        "stock": 100,
+        "category": "shoes",
+        "thumbnail": ""
+    },
+    {
+        "id": 4,
+        "title": "Chaqueta de Cuero",
+        "description": "Chaqueta de cuero genuino, perfecta para el invierno.",
+        "code": "JACKET001",
+        "price": 89.99,
+        "status": true,
+        "stock": 80,
+        "category": "jacket",
+        "thumbnail": ""
+    },
+    {
+        "id": 5,
+        "title": "Sudadera con Capucha",
+        "description": "Sudadera suave con capucha y bolsillo frontal.",
+        "code": "HOODIE001",
+        "price": 34.99,
+        "status": true,
+        "stock": 120,
+        "category": "hoodie",
+        "thumbnail": ""
+    },
+    {
+        "id": 6,
+        "title": "Camiseta Gráfica",
+        "description": "Camiseta con diseño gráfico moderno.",
+        "code": "TSHIRT002",
+        "price": 15.99,
+        "status": true,
+        "stock": 150,
+        "category": "shirt",
+        "thumbnail": ""
+    },
+    {
+        "id": 7,
+        "title": "Gorra de Beisbol",
+        "description": "Gorra ajustable con diseño clásico.",
+        "code": "CAP001",
+        "price": 19.99,
+        "status": true,
+        "stock": 200,
+        "category": "accessories",
+        "thumbnail": ""
+    },
+    {
+        "id": 8,
+        "title": "Cinturón de Cuero",
+        "description": "Cinturón de cuero elegante y duradero.",
+        "code": "BELT001",
+        "price": 24.99,
+        "status": true,
+        "stock": 90,
+        "category": "accessories",
+        "thumbnail": ""
+    },
+    {
+        "id": 9,
+        "title": "Calcetines de Algodón",
+        "description": "Paquete de 3 pares de calcetines cómodos.",
+        "code": "SOCKS001",
+        "price": 9.99,
+        "status": true,
+        "stock": 300,
+        "category": "accessories",
+        "thumbnail": ""
+    },
+    {
+        "id": 10,
+        "title": "Camiseta de Manga Larga",
+        "description": "Camiseta de manga larga ideal para climas frescos.",
+        "code": "TSHIRT003",
+        "price": 18.5,
+        "status": true,
+        "stock": 100,
+        "category": "shirt",
+        "thumbnail": ""
+    },
+    {
+        "id": 11,
+        "title": "Botas de Invierno",
+        "description": "Botas resistentes al agua, perfectas para el frío.",
+        "code": "BOOTS001",
+        "price": 79.99,
+        "status": true,
+        "stock": 60,
+        "category": "shoes",
+        "thumbnail": ""
+    },
+    {
+        "id": 12,
+        "title": "Camiseta de Pijama",
+        "description": "Camiseta suave y cómoda para dormir.",
+        "code": "TSHIRT004",
+        "price": 13.5,
+        "status": true,
+        "stock": 40,
+        "category": "shirt",
+        "thumbnail": ""
+    },
+    {
+        "id": 13,
+        "title": "Shorts de Verano",
+        "description": "Shorts ligeros y cómodos para el verano.",
+        "code": "SHORTS001",
+        "price": 25,
+        "status": true,
+        "stock": 150,
+        "category": "pants",
+        "thumbnail": ""
+    },
+    {
+        "id": 14,
+        "title": "Camiseta de Color Sólido",
+        "description": "Camiseta simple en varios colores.",
+        "code": "TSHIRT005",
+        "price": 11.5,
+        "status": true,
+        "stock": 300,
+        "category": "shirt",
+        "thumbnail": ""
+    },
+    {
+        "id": 15,
+        "title": "Chaqueta de Invierno",
+        "description": "Chaqueta abrigada para climas fríos.",
+        "code": "WINTERJACKET001",
+        "price": 99.99,
+        "status": true,
+        "stock": 30,
+        "category": "jacket",
+        "thumbnail": ""
+    },
+    {
+        "id": 16,
+        "title": "Camiseta de Estampado Floral",
+        "description": "Camiseta con estampado floral vibrante.",
+        "code": "TSHIRT006",
+        "price": 16.75,
+        "status": true,
+        "stock": 70,
+        "category": "shirt",
+        "thumbnail": ""
+    },
+    {
+        "id": 17,
+        "title": "Camiseta de Cuello V",
+        "description": "Camiseta de cuello en V, perfecta para un look casual.",
+        "code": "TSHIRT007",
+        "price": 14.99,
+        "status": true,
+        "stock": 120,
+        "category": "shirt",
+        "thumbnail": ""
+    },
+    {
+        "id": 18,
+        "title": "Camiseta de Diseño Personalizado",
+        "description": "Camiseta que puedes personalizar con tu propio diseño.",
+        "code": "TSHIRT008",
+        "price": 30,
+        "status": true,
+        "stock": 20,
+        "category": "shirt",
+        "thumbnail": ""
+    },
+    {
+        "id": 19,
+        "title": "Camiseta de Edición Limitada",
+        "description": "Camiseta de edición limitada con un diseño exclusivo.",
+        "code": "TSHIRT009",
+        "price": 35,
+        "status": true,
+        "stock": 15,
+        "category": "shirt",
+        "thumbnail": ""
+    },
+    {
+        "id": 20,
+        "title": "Camiseta de Estilo Urbano",
+        "description": "Camiseta con un diseño urbano y moderno.",
+        "code": "TSHIRT010",
+        "price": 24.99,
+        "status": true,
+        "stock": 40,
+        "category": "shirt",
+        "thumbnail": ""
+    }
+]
