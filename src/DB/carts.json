@@ -1,1 +1,31 @@
-[]
+[
+    {
+        "id": 1,
+        "products": [
+            {
+                "id": 2,
+                "title": "Pantalones Jeans",
+                "description": "Pantalones de mezclilla de corte ajustado.",
+                "code": "PANTS001",
+                "price": 29.99,
+                "status": true,
+                "stock": 150,
+                "category": "pants",
+                "thumbnail": "",
+                "qty": 2
+            },
+            {
+                "id": 1,
+                "title": "Camiseta Básica",
+                "description": "Camiseta de algodón 100% con un corte clásico.",
+                "code": "TSHIRT001",
+                "price": 12.99,
+                "status": true,
+                "stock": 200,
+                "category": "shirt",
+                "thumbnail": "",
+                "qty": 1
+            }
+        ]
+    }
+]

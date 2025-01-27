@@ -52,8 +52,6 @@ export class ProductManager extends FileManager{
     async modifyProduct(id, product) {
         const data = JSON.parse(await this.read());
         const pIndex = data.findIndex((p) => p.id == id);
-        console.log(product);
-        
         if (pIndex < 0) throw new Error("Product not founded.");
 
         const result = this.combineObjs(data[pIndex], product);
@@ -74,11 +72,6 @@ export class ProductManager extends FileManager{
     // Helpers
     validProduct(product) {
         return product.title && product.description && product.price && product.price > 0;
-    }
-
-    getNextId(data) {
-        if (!data || !data[data.length-1]) return 1;
-        return data[data.length-1].id+1;
     }
 
     generateCode() {
