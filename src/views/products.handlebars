@@ -1,10 +1,12 @@
-<div class="welcome">
-    <h1>HOLA</h1>
-    <ul>
-        {{#each products}}
-        <li>{{this.title}}</li>
-        {{/each}}
-    </ul>
+<div class="card">
+    {{#each products}}
+    <div class="product-card {{#if this.stock}}available{{else}}soldout{{/if}}">
+        <img src="./imgs/products/clothe2.webp" alt="">
+        <h3>{{this.code}} - {{this.title}}</h3>
+            <b>{{this.description}}</b>
+        <p>{{this.price}} $</p>
+    </div>
+    {{/each}}
 </div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/index.js"></script>
