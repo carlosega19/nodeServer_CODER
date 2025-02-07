@@ -28,6 +28,6 @@ app.use("/", viewsRouter)
 app.use("/api/products", productsRouter);
 app.use("/api/carts", cartRouter);
 
-app.listen(PORT, async() => {
+server.listen(PORT, () => {
     console.log('\n[SERVIDOR INICIADO]\n\x1b[32m==> http://localhost:8080\x1b[0m');
 });
