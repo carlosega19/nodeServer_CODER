@@ -13,11 +13,13 @@ prodForm.addEventListener('submit', (e) => {
     const stockInput = document.getElementById("stockInput");
     const categoryInput = document.getElementById("categoryInput");
     const statusInput = document.getElementById("statusInput");
+    
+    
     socket.emit("add product", {
         title: titleInput.value,
         description: descInput.value,
-        price: priceInput.value,
-        stock: stockInput.value,
+        price: parseFloat(priceInput.value),
+        stock: parseInt(stockInput.value),
         status: statusInput.checked,
         category: categoryInput.value
     });
@@ -29,10 +31,29 @@ prodForm.addEventListener('submit', (e) => {
     statusInput.checked = false;
 });
 
-function updateView() {
-
+async function updateView() {
+    const data = await fetch("http://localhost:8080/api/products", {
+        method:"GET"
+    }).then(res => res.json())
+    .then(products => products)
+    .catch(e => {});
+    if(!data) return;
+    
+    const container = document.querySelector('.products-container');
+    container.innerHTML = "";
+    for (const prod of data) {
+        container.innerHTML += `
+            <div class="product-card ${prod.stock ? "available" : "soldout"}">
+                <img src="./imgs/products/clothe2.webp" alt="">
+                <h3>${prod.code} - ${prod.title}</h3>
+                    <b>${prod.description}</b>
+                <p>${prod.price} $</p>
+            </div>
+        `;
+    }
 }
 
 socket.on("product added", () => {
-    
+    console.log("PRODUCTO ANADIDO");
+    updateView();
 });

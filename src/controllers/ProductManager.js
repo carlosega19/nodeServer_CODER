@@ -37,6 +37,7 @@ export class ProductManager extends FileManager{
             description: product.description,
             code: this.generateCode(),
             price: product.price,
+            stock: product.stock,
             status: product.status ? product.status : true,
             category: product.category ? product.category : "",
             thumbnail: ""
