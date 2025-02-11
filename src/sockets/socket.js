@@ -5,15 +5,18 @@ const setUpSocketServer = (httpServer) => {
     const io = new Server(httpServer);
 
     io.on('connection', (socket) => {
+        const productManager = new ProductManager("./src/DB/products.json");
         console.log("Cliente conectado");
 
         socket.on("add product", (prod) => {
-            const productManager = new ProductManager("./src/DB/products.json");
             productManager.addProduct(prod);
-            socket.emit("product added");
+            io.emit("product added");
         });
 
-
+        socket.on("product deleted", (id) => {
+            productManager.deleteProductById(id);
+            io.emit("delete broadcast");
+        });
     });
     console.log("--SOCKET CREADO--");
 }

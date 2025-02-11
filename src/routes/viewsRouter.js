@@ -7,10 +7,10 @@ viewsRouter.get("/", (req, res) => {
     res.render("home");
 });
 
-viewsRouter.get("/products", async  (req, res) => {
+viewsRouter.get("/realtimeproducts", async  (req, res) => {
     const pdManager = new ProductManager("./src/DB/products.json");
     const data = await pdManager.getProducts();
-    res.render("products", {products: data});
+    res.render("realTimeProducts", {products: data});
 });
 
 export default viewsRouter;
