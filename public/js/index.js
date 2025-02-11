@@ -1,8 +1,8 @@
 const socket = io();
 
 // Sockets config
-socket.on("product added", () => {
-    updateView();
+socket.on("product added", (products) => {
+    updateView(products);
     Swal.fire({
         position: "top-end",
         icon: "success",
@@ -11,8 +11,8 @@ socket.on("product added", () => {
         timer: 1500
     });
 });
-socket.on("delete broadcast", () => {
-    updateView();
+socket.on("delete broadcast", (products) => {
+    updateView(products);
     Swal.fire({
         position: "top-end",
         icon: "success",
@@ -66,6 +66,8 @@ function initProductsBehavior() {
         })
     });
 }
+
+/* 
 async function getProducts() {
     const response = await fetch("http://localhost:8080/api/products", {
         method: "GET"
@@ -73,13 +75,18 @@ async function getProducts() {
     const products = await response.json();
     return products;
 }
+Tenia la duda de si es mejor pedir los productos directamente de la api
+o enviarlos por el socket, de igual manera para esta version se envian por el socket
+*/
 
-async function updateView() {
-    const data = await getProducts();
-    
+
+
+async function updateView(data) {
     const container = document.querySelector('.products-container');
     container.innerHTML = "";
+    
     for (const prod of data) {
+        
         container.innerHTML += `
             <div class="product-card ${prod.stock ? "available" : "soldout"}" data-id="${prod.id}">
                 <img src="./imgs/products/clothe2.webp" alt="">

@@ -8,14 +8,14 @@ const setUpSocketServer = (httpServer) => {
         const productManager = new ProductManager("./src/DB/products.json");
         console.log("Cliente conectado");
 
-        socket.on("add product", (prod) => {
-            productManager.addProduct(prod);
-            io.emit("product added");
+        socket.on("add product", async (prod) => {
+            await productManager.addProduct(prod);
+            io.emit("product added", await productManager.getProducts());
         });
 
-        socket.on("product deleted", (id) => {
-            productManager.deleteProductById(id);
-            io.emit("delete broadcast");
+        socket.on("product deleted", async (id) => {
+            await productManager.deleteProductById(id);
+            io.emit("delete broadcast", await productManager.getProducts());
         });
     });
     console.log("--SOCKET CREADO--");
