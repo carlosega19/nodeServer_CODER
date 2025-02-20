@@ -44,7 +44,7 @@ export class ProductManager extends FileManager{
         };
 
         data.push(createdProd);    
-        this.save(data);
+        await this.save(data);
         return createdProd;
     }
     //-------------------------------------
@@ -66,7 +66,7 @@ export class ProductManager extends FileManager{
     async deleteProductById(id) {
         let data = JSON.parse(await this.read());
         data = data.filter((p) => p.id != id);
-        this.save(data);
+        await this.save(data);
     }
     //-------------------------------------
     
