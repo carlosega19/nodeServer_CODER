@@ -5,12 +5,13 @@ import { engine } from "express-handlebars";
 import http from "http";
 import setUpSocketServer from "./sockets/socket.js";
 import viewsRouter from "./routes/viewsRouter.js";
+import connectMongoDB from "./db/db.js";
 
 const app = express();
 const server = http.createServer(app);
 const PORT = 8080;
 setUpSocketServer(server);
-
+connectMongoDB();
 
 // Config
 app.use(express.static("public"));

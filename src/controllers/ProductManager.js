@@ -1,81 +1,68 @@
-import { nanoid } from "nanoid";
-import { FileManager } from "./FileManager.js";
+import Product from "../models/productModel.js";
 
-export class ProductManager extends FileManager{
-    constructor(filepath) {
-        super(filepath);
+class ProductManager {
+
+    constructor() {
+        this.db = Product;
     }
-
     
-    // GETS
-    async getProducts() {
-        const data = JSON.parse(await this.read());
-        return data;
-    }
-
-    async getProductById(id) {
-        const data = JSON.parse(await this.read());
-        return data.find((p) => p.id == id);
-    }
-
-    getProductByDesc() {
-        return undefined;
-    }
-    //-------------------------------------
-    
-    // POSTS
-    async addProduct(product) {
-        if (!this.validProduct(product)) {
-            throw new Error("Invalid data");
+    async addProduct(productData) {
+        try {
+            const { title, description, price, status, stock, category } = productData;
+            const product = new this.db({ title, description, price, status, stock, category });
+            await product.save();
+            return product;
+        } catch (error) {
+            throw new Error('Error adding product: ' + error.message);
         }
-        const data = JSON.parse(await this.read());
-        
-        const createdProd = 
-        {
-            id: this.getNextId(data),
-            title: product.title,
-            description: product.description,
-            code: this.generateCode(),
-            price: product.price,
-            stock: product.stock,
-            status: product.status ? product.status : true,
-            category: product.category ? product.category : "",
-            thumbnail: ""
-        };
-
-        data.push(createdProd);    
-        await this.save(data);
-        return createdProd;
-    }
-    //-------------------------------------
-
-    // PUTS
-    async modifyProduct(id, product) {
-        const data = JSON.parse(await this.read());
-        const pIndex = data.findIndex((p) => p.id == id);
-        if (pIndex < 0) throw new Error("Product not founded.");
-
-        const result = this.combineObjs(data[pIndex], product);
-        data[pIndex] = result;
-        this.save(data);
-        return result;
-    }
-    //-------------------------------------
-
-    // DELETES
-    async deleteProductById(id) {
-        let data = JSON.parse(await this.read());
-        data = data.filter((p) => p.id != id);
-        await this.save(data);
-    }
-    //-------------------------------------
-    
-    // Helpers
-    validProduct(product) {
-        return product.title && product.description && product.price && product.price > 0;
     }
 
-    generateCode() {
-        return nanoid(10);
+    async getProductById(productId) {
+        try {
+            const product = await this.db.findById(productId);
+            return product || { message: "Not founded." };
+        } catch (error) {
+            throw new Error('Error getting product: ' + error.message);
+        }
+    }
+
+    async updateProduct(productId, productData) {
+        try {
+            const { title, description, price, status, stock, category } = productData;
+            const product = await this.db.findByIdAndUpdate(productId, { title, description, price, status, stock, category }, { new: true });
+            return product;
+        } catch (error) {
+            throw new Error('Error updating product: ' + error.message);
+        }
+    }
+
+    async deleteProduct(productId) {
+        try {
+            await this.db.findByIdAndDelete(productId);
+            return { message: 'Product deleted successfully' };
+        } catch (error) {
+            throw new Error('Error deleting product: ' + error.message);
+        }
+    }
+
+    async getProducts(category, priceOrder, page = 1, limit = 10) {
+        try {
+            const query = category ? { category } : {};
+            const options = {
+                page,
+                limit,
+                sort: {},
+                lean: true
+            };
+            // TODO: change priceOrder
+            if (priceOrder) {
+                priceOrder === "asc" ? options.sort.price = 1 : -1;
+            }
+            const products = await this.db.paginate(query, options);
+            return products;
+        } catch (error) {
+            throw new Error('Error getting products: ' + error.message);
+        }
     }
 }
+export default ProductManager;

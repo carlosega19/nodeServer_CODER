@@ -1,5 +1,6 @@
 import express from "express";
-import { ProductManager } from "../controllers/ProductManager.js";
+import ProductManager from "../controllers/ProductManager.js";
+
 
 const viewsRouter = express.Router();
 
@@ -7,10 +8,15 @@ viewsRouter.get("/", (req, res) => {
     res.render("home");
 });
 
-viewsRouter.get("/realtimeproducts", async  (req, res) => {
-    const pdManager = new ProductManager("./src/DB/products.json");
-    const data = await pdManager.getProducts();
-    res.render("realTimeProducts", {products: data});
+viewsRouter.get("/products", async  (req, res) => {
+    try {
+        const prodMng = new ProductManager();
+        const {category, priceOrder, page} = req.query;
+        const data = await prodMng.getProducts(category, priceOrder, page);
+        res.render("products", data); 
+    } catch (error) {
+        res.status(500);
+    }
 });
 
 export default viewsRouter;

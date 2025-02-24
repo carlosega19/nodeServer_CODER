@@ -1,0 +1,21 @@
+<div class="card products-container">
+    {{#each docs}}
+    <div class="product-card {{#if this.stock}}available{{else}}soldout{{/if}}" data-id="{{this.id}}">
+        <img src="./imgs/products/clothe2.webp" alt="">
+        <h3>{{this.code}} - {{this.title}}</h3>
+        <b>{{this.description}}</b>
+        <p>{{this.price}} $</p>
+    </div>
+    {{/each}}
+    
+</div>
+
+<div class="card page-manager">
+        <a href="/products?page={{prevPage}}" class="{{#if hasPrevPage}}unable{{/if}}">Previous</a>
+        <p>{{page}} - {{totalPages}}</p>
+        <a href="/products?page={{nextPage}}" class="{{#if hasNextPage}}unable{{/if}}">Next</a>
+    </div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/index.js"></script>
