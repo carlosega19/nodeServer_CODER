@@ -9,7 +9,7 @@ productsRouter.get("/", async (req, res) => {
     try {
         res.status(200).send(await prodManager.getProducts());
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(400).send({status: "failed", error: error.message});
     }
 });
 
@@ -19,7 +19,7 @@ productsRouter.get("/:id", async (req, res) => {
         const { id } = req.params;
         res.status(200).send(await prodManager.getProductById(id));
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(400).send({status: "failed", error: error.message});
     }
 });
 
@@ -29,7 +29,7 @@ productsRouter.post("/", async (req, res) => {
         const product = req.body;
         res.status(201).send(await prodManager.addProduct(product));
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(400).send({status: "failed", error: error.message});
     }
 });
 
@@ -40,18 +40,17 @@ productsRouter.put("/:id", async (req, res) => {
         const { id } = req.params;
         res.status(201).send(await prodManager.updateProduct(id, product));
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(400).send({status: "failed", error: error.message});
     }
 });
 
-//67bb946fe6a747bb030a4db6
 // delete product by id
 productsRouter.delete("/:id", async (req, res) => {
     try {
         const { id } = req.params;
         res.status(200).send(await prodManager.deleteProduct(id));
     } catch (error) {
-        res.status(500).send(error.message);
+        res.status(400).send({status: "failed", error: error.message});
     }
 });
 
