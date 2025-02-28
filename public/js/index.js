@@ -1,46 +1,41 @@
 const socket = io();
-
-// Sockets config
-socket.on("product added", (products) => {
-    updateView(products);
-    showNotification("Product added");
+//-----------------------------------------------------------
+//-----------------------------------------------------------
+//-----------------------------------------------------------
+//-----------------------------------------------------------
+/* SOCKET */
+//-----------------------------------------------------------
+//-----------------------------------------------------------
+//-----------------------------------------------------------
+socket.on("cart created", (cartId) => {
+    localStorage.setItem("cartId", cartId);
+    window.location.href = `/cart/${cartId}`;
+});
+socket.on("cart updated", ({cartId, message}) => {
+    showNotification(message);
 });
 
-socket.on("delete broadcast", (products) => {
-    updateView(products);
-    showNotification("Product deleted");
+const cartBtn = document.querySelector(".fa-bag-shopping");
+const menuBtn = document.querySelector(".fa-bars");
+
+cartBtn.addEventListener("click", () => {
+    const cartId = localStorage.getItem("cartId");
+    if (cartId) window.location.href = `/cart/${cartId}`;
+    else socket.emit("create cart");
+});
+menuBtn.addEventListener("click", () => {
+    const menu = document.querySelector(".menu");
+    menu.classList.toggle("hidden");
 });
 
-/* REAL TIME FORM
-const prodForm = document.getElementById("prod-form");
-prodForm.addEventListener('submit', handleFormSubmit);
-
-function handleFormSubmit(e) {
-    e.preventDefault();
-    const productData = getProductFormData();
-    socket.emit("add product", productData);
-    resetProductForm();
-}
-
-function getProductFormData() {
-    return {
-        title: document.getElementById("titleInput").value,
-        description: document.getElementById("descInput").value,
-        price: parseFloat(document.getElementById("priceInput").value),
-        stock: parseInt(document.getElementById("stockInput").value),
-        status: document.getElementById("statusInput").checked,
-        category: document.getElementById("categoryInput").value
-    };
-}
-
-function resetProductForm() {
-    document.getElementById("titleInput").value = "";
-    document.getElementById("descInput").value = "";
-    document.getElementById("priceInput").value = 0;
-    document.getElementById("stockInput").value = 0;
-    document.getElementById("categoryInput").value = "";
-    document.getElementById("statusInput").checked = false;
-}*/
+//-----------------------------------------------------------
+//-----------------------------------------------------------
+//-----------------------------------------------------------
+//-----------------------------------------------------------
+/* FUNCTIONS */
+//-----------------------------------------------------------
+//-----------------------------------------------------------
+//-----------------------------------------------------------
 
 function showNotification(message) {
     Swal.fire({
@@ -52,45 +47,71 @@ function showNotification(message) {
     });
 }
 
+function applyFilters() {
+    const filters = document.querySelectorAll('.filters-container button.active');
+    const newUrl = new URL(window.location.href);
+    newUrl.search = "";
+    filters.forEach(filter => {
+        newUrl.searchParams.append(filter.id.split("=")[0], filter.id.split("=")[1]);
+    });
+    window.location.href = newUrl;
+}
+
+function initButtonsBehavior() {
+    const filtersButton = document.querySelectorAll('.filters-container button');
+    const params = getParams();
+
+    filtersButton.forEach(btn => {
+        const [paramName, paramValue] = btn.id.split("=");
+        if (params.has(paramName) && params.get(paramName) === paramValue) {
+            btn.classList.add('active');
+        }
+
+        btn.addEventListener('click', () => {
+            btn.classList.toggle('active');
+
+            filtersButton.forEach(otherBtn => {
+                if (otherBtn.id.split("=")[0] === paramName && otherBtn !== btn) {
+                    otherBtn.classList.remove('active');
+                }
+            });
+            applyFilters();
+        });
+    });
+}
+
+
 function initProductsBehavior() {
-    const container = document.querySelector('.products-container');
-    container.addEventListener('click', (e) => {
-        if (e.target.closest('.product-card')) {
-            const prodDiv = e.target.closest('.product-card');
-            handleProductClick(prodDiv);
-        }
+    const products = document.querySelectorAll('.product');
+    products.forEach(prod => {
+        prod.addEventListener('click', () => {
+            window.location.href = `/product/${prod.dataset.id}`;
+        });
+        prod.querySelector('button').addEventListener('click', (e) => {
+            e.stopPropagation();
+            addToCart(prod.dataset.id);
+        });
     });
 }
 
-function handleProductClick(prodDiv) {
-    Swal.fire({
-        title: "Do you want to delete this product?",
-        showCancelButton: true,
-        confirmButtonText: "Delete"
-    })
-    .then((res) => {
-        if (res.isConfirmed) {
-            socket.emit("product deleted", parseInt(prodDiv.dataset.id));
-        }
-    });
+function getParams() {
+    const search = window.location.search;
+    const params = new URLSearchParams(search);
+    return params;
 }
 
-async function updateView(data) {
-    const container = document.querySelector('.products-container');
-    container.innerHTML = "";
+function addToCart(productId) {
+    const cartId = localStorage.getItem("cartId");
+    if (!cartId) {
+        socket.emit("create cart");
+        showNotification("Try again !");
+        return;
+    }
+    socket.emit("add to cart", { cartId, productId });
+}
 
-    data.forEach(prod => {
-        container.innerHTML += `
-            <div class="product-card ${prod.stock ? "available" : "soldout"}" data-id="${prod.id}">
-                <img src="./imgs/products/clothe2.webp" alt="">
-                <h3>${prod.code} - ${prod.title}</h3>
-                <b>${prod.description}</b>
-                <p>${prod.price} $</p>
-            </div>
-        `;
-    });
-
+document.addEventListener("DOMContentLoaded", () => {
+    initButtonsBehavior();
     initProductsBehavior();
-}
+});
 
-initProductsBehavior();

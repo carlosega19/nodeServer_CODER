@@ -1,8 +1,7 @@
 import express from "express";
-import ProductManager from "../controllers/ProductManager.js";
+import prodManager from "../controllers/ProductManager.js";
 
 const productsRouter = express.Router();
-const prodManager = new ProductManager();
 
 // get all
 productsRouter.get("/", async (req, res) => {

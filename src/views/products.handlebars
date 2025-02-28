@@ -1,21 +1,29 @@
-<div class="card products-container">
-    {{#each docs}}
-    <div class="product-card {{#if this.stock}}available{{else}}soldout{{/if}}" data-id="{{this.id}}">
-        <img src="./imgs/products/clothe2.webp" alt="">
-        <h3>{{this.code}} - {{this.title}}</h3>
-        <b>{{this.description}}</b>
-        <p>{{this.price}} $</p>
+<div class="filters-container">
+    <h3>Shop by categories</h3>
+    <h1>Summer Collection</h1>
+    <div class="filters">
+        <button id="priceOrder=asc">+ Economic</button>
+        <button id="topSeller=true">Top Selling</button>
+        <button id="priceOrder=desc">+ Expensive</button>
     </div>
-    {{/each}}
-    
 </div>
 
-<div class="card page-manager">
-        <a href="/products?page={{prevPage}}" class="{{#if hasPrevPage}}unable{{/if}}">Previous</a>
-        <p>{{page}} - {{totalPages}}</p>
-        <a href="/products?page={{nextPage}}" class="{{#if hasNextPage}}unable{{/if}}">Next</a>
+<div class="products-container">
+    {{#each docs}}
+    <div class="product" data-id="{{this._id}}">
+        <img src="/imgs/products/clothe2.webp" alt="{{this.name}}">
+        <h3>{{this.title}}</h3>
+        <p>${{this.price}}</p>
+        <button class="add-to-cart">Add to cart</button>
     </div>
+    {{/each}}
+</div>
 
+<div class="products-pagination">
+    <a href="/products/?page={{prevPage}}" class="pageChanger {{#if hasPrevPage}}{{else}}unable{{/if}}">Previous</a>
+    <p>{{page}} - {{totalPages}}</p>
+    <a href="/products/?page={{nextPage}}" class="pageChanger {{#if hasNextPage}}{{else}}unable{{/if}}">Next</a>
+</div>
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/index.js"></script>
