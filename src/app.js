@@ -19,7 +19,13 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 // Handlebars
-app.engine("handlebars", engine());
+app.engine("handlebars", engine({
+    helpers: {
+        eq: function(a, b) {
+            return a == b;
+        }
+    }
+}));
 app.set("view engine", "handlebars");
 app.set("views", "./src/views");
 //-------------------------------------------

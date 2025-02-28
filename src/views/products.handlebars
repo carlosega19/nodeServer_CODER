@@ -10,10 +10,15 @@
 
 <div class="products-container">
     {{#each docs}}
-    <div class="product" data-id="{{this._id}}">
+    <div class="product {{#if status}}{{else}}notavailable{{/if}} {{#if (eq this.stock 0)}}outstock{{/if}}" data-id="{{this._id}}">
         <img src="/imgs/products/clothe2.webp" alt="{{this.name}}">
         <h3>{{this.title}}</h3>
         <p>${{this.price}}</p>
+        {{#if (eq this.stock 0)}}
+        <b class="red">Out of stock</b>
+        {{else}}
+        <b class="green">In stock</b>
+        {{/if}}
         <button class="add-to-cart">Add to cart</button>
     </div>
     {{/each}}

@@ -10,8 +10,8 @@ viewsRouter.get("/", (req, res) => {
 
 viewsRouter.get("/products", async  (req, res) => {
     try {
-        const {category, priceOrder, page} = req.query;
-        const data = await prodMng.getProducts(category, priceOrder, page);
+        const { topSeller, priceOrder, page} = req.query;
+        const data = await prodMng.getProducts(topSeller, priceOrder, page);
         res.render("products", data);
     } catch (error) {
         res.status(500);

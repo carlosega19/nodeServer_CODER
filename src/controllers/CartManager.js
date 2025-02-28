@@ -35,10 +35,12 @@ class CartManager {
 
     async addProductToCart(cartId, productId) {
         try {
-            const cart = await this.findCartById(cartId);
+            const cart = await this.db.findById(cartId);
+            if (!cart) throw new Error('Cart not found');
             const prod = cart.products.find(item => item.product._id.toString() === productId);
             if (prod) prod.qty = prod.qty+1;
             else cart.products.push({ product: productId });
+
             await cart.save();
             return cart;
         } catch (error) {

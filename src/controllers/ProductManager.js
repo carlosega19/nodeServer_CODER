@@ -45,9 +45,12 @@ class ProductManager {
         }
     }
 
-    async getProducts(category, priceOrder, page = 1, limit = 10) {
+    async getProducts(topSeller, priceOrder, page = 1, limit = 10) {
         try {
-            const query = category ? { category } : {};
+            const query = {};
+            if (topSeller !== undefined) {
+                query.stock = { $lt: 100 };
+            }
             const options = {
                 page,
                 limit,
@@ -55,8 +58,8 @@ class ProductManager {
                 lean: true
             };
             // TODO: change priceOrder
-            if (priceOrder) {
-                priceOrder === "asc" ? options.sort.price = 1 : -1;
+            if (priceOrder !== undefined) {
+                options.sort.price = priceOrder == 'asc' ? 1 : -1;
             }
             const products = await this.db.paginate(query, options);
             return products;
