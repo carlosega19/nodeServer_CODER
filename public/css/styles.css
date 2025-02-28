@@ -73,7 +73,21 @@ button:hover,a:hover {
 a {
     text-decoration: none;
 }
-
+ul {
+    list-style: none;
+}
+b {
+    font-weight: 700;
+}
+button i {
+    font-size: 15px;
+}
+input {
+    width: 50px;
+}
+hr {
+    width: 100%;
+}
 /*---------------------------------------------------------*/
 /*---------------------------------------------------------*/
 /* CLASSES */
@@ -246,3 +260,54 @@ a {
     color: var(--color-text);
 }
 
+.cart {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #c1c1c2;
+    padding: 20px;
+    border-radius: 20px;
+    height: 80vh;
+}
+.cart-container {
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    padding: 30px;
+    gap: 30px;
+}
+.cart-container ul {
+    height: 100%;
+    scroll-behavior: auto;
+}
+.cart-container li {
+    height: fit-content;
+}
+.product-cart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    border-bottom: 1px solid var(--color-text);
+    border-top: 1px solid var(--color-text);
+    padding: 5px 0;
+}
+.product-cart img {
+    height: 120px;
+    width: 120px;
+}
+.product-cart button {
+    padding: 0px;
+    background-color: transparent;
+    border-radius: 25px;
+    border: 1px solid var(--color-text);
+}
+.checkout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 500px;
+    border: 2px solid rgb(167, 167, 167);
+    border-radius: 10px;
+    padding: 20px;
+    gap: 20px;
+}

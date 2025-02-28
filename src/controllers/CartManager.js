@@ -27,7 +27,7 @@ class CartManager {
 
     async findCartById(cartId) {
         try {
-            return await this.db.findById(cartId);
+            return await this.db.findById(cartId).lean();
         } catch (error) {
             throw new Error('Error finding cart: ' + error.message);
         }

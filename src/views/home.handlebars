@@ -4,7 +4,25 @@
     </div>
     <div class="sec2">
         <div class="sponsor collection"></div>
-        <div class="sponsor new"></div>
+        <div class="sponsor economic"></div>
         <div class="sponsor trending"></div>
     </div>
 </div>
+
+<script>
+    document.querySelectorAll(".sponsor").forEach(cont => {
+        cont.addEventListener('click', () => {
+            switch (cont.classList[1]) {
+                case "collection":
+                    window.location.href = "/products";
+                    break;
+                case "economic":
+                    window.location.href = "/products?priceOrder=asc";
+                    break;
+                case "trending":
+                    window.location.href = "/products?topSeller=true";
+                    break;
+            }
+        });
+    });
+</script>

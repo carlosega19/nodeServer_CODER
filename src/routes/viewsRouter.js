@@ -30,7 +30,16 @@ viewsRouter.get("/product/:id", async (req, res) => {
 viewsRouter.get("/cart/:id", async(req, res) => {
     try {
         const cart = await cartMng.findCartById(req.params.id);
-        res.render("cart", {products: cart.products});
+        let total = 0;
+        cart.products.forEach(prod => {
+            total+= prod.product.price*prod.qty;
+        });
+        
+        res.render("cart", {
+            products: cart.products,
+            qty: cart.products.length,
+            total
+        });
     } catch (error) {
         res.status(500);
     }
