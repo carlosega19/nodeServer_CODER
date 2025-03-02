@@ -50,7 +50,7 @@ class CartManager {
 
     async deleteProductOfCart(cartId, productId) {
         try {
-            const cart = await this.findCartById(cartId);
+            const cart = await this.db.findById(cartId);
             cart.products = cart.products.filter(item => item.product._id.toString() !== productId);
             await cart.save();
             return cart;

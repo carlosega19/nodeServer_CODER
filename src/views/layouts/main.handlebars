@@ -13,7 +13,10 @@
     <header>
         <div class="icons-container">
             <i class="fa-solid fa-bars fa-xl" style="color: #000000;"></i>
-            <i class="fa-solid fa-magnifying-glass fa-lg" style="color: #000000;"></i>
+            <form class="search-form">
+                <i class="fa-solid fa-magnifying-glass fa-lg" style="color: #000000;"></i>
+                <input class="search-input" type="text" placeholder="Search here...">
+            </form>
         </div>
         <h1>Glow</h1>
         <nav>
@@ -26,3 +29,19 @@
     {{{ body }}}
 </body>
 </html>
+
+
+<script>
+    const searchForm = document.querySelector('.search-form');
+    const searchBtn = document.querySelector('.fa-magnifying-glass');
+    
+    searchBtn.addEventListener('click', () => {
+        const searchInput = document.querySelector('.search-input');
+        searchInput.classList.toggle('appear');
+    });
+    searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const searchInput = document.querySelector('.search-input');
+        window.location.href = `/products/?text=${searchInput.value}`;
+    });
+</script>

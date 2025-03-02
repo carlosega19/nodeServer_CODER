@@ -131,6 +131,24 @@ hr {
     align-items: center;
     gap: 20px;
 }
+
+.search-input {
+    width: 0;
+    border: none;
+    position: absolute;
+    top: 30%;
+    padding: 8px 15px;
+    transition: all .3s ease-in-out;
+}
+.appear {
+    padding: 8px 15px;
+    width: 500px;
+    border-radius: 5px;
+    background: var(--color-contrast);
+    color: var(--color-text);
+    font-weight: 500;
+}
+
 .sponsor {
     height: 250px;
     width: 250px;

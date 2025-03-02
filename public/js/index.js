@@ -13,6 +13,9 @@ socket.on("cart created", (cartId) => {
 });
 socket.on("cart updated", ({cartId, message}) => {
     showNotification(message);
+    setTimeout(() => {
+        window.location.href = `/cart/${cartId}`;
+    }, 2000);
 });
 
 const cartBtn = document.querySelector(".fa-bag-shopping");
@@ -60,7 +63,7 @@ function applyFilters() {
 function initButtonsBehavior() {
     const filtersButton = document.querySelectorAll('.filters-container button');
     const params = getParams();
-
+    if (!filtersButton) return;
     filtersButton.forEach(btn => {
         const [paramName, paramValue] = btn.id.split("=");
         if (params.has(paramName) && params.get(paramName) === paramValue) {
@@ -83,6 +86,7 @@ function initButtonsBehavior() {
 
 function initProductsBehavior() {
     const products = document.querySelectorAll('.product');
+    if (!products) return;
     products.forEach(prod => {
         prod.addEventListener('click', () => {
             window.location.href = `/product/${prod.dataset.id}`;
@@ -90,6 +94,18 @@ function initProductsBehavior() {
         prod.querySelector('button').addEventListener('click', (e) => {
             e.stopPropagation();
             addToCart(prod.dataset.id);
+        });
+    });
+}
+
+async function initCartBehavior() {
+    const delProductBtns = document.querySelectorAll('.product-cart-btns');
+    if (!delProductBtns) return;
+    delProductBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const cartId = localStorage.getItem("cartId");
+            const productId = btn.dataset.id;
+            socket.emit("remove from cart", { cartId, productId });
         });
     });
 }
@@ -113,5 +129,6 @@ function addToCart(productId) {
 document.addEventListener("DOMContentLoaded", () => {
     initButtonsBehavior();
     initProductsBehavior();
+    initCartBehavior();
 });
 
