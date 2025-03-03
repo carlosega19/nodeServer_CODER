@@ -25,6 +25,11 @@ const setUpSocketServer = (httpServer) => {
             const cart = await cartManager.deleteProductOfCart(data.cartId, data.productId);
             socket.emit("cart updated", {cartId: cart._id, message: "Product removed from cart"});
         });
+
+        socket.on("checkout", async (cartId) => {
+            const cart = await cartManager.emptyCart(cartId);
+            socket.emit("cart updated", {cartId: cart._id, message: "Thans for your purchase!"});
+        });
     });
     console.log("--SOCKET CREADO--");
 }

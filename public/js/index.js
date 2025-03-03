@@ -63,24 +63,34 @@ function applyFilters() {
 function initButtonsBehavior() {
     const filtersButton = document.querySelectorAll('.filters-container button');
     const params = getParams();
-    if (!filtersButton) return;
-    filtersButton.forEach(btn => {
-        const [paramName, paramValue] = btn.id.split("=");
-        if (params.has(paramName) && params.get(paramName) === paramValue) {
-            btn.classList.add('active');
-        }
-
-        btn.addEventListener('click', () => {
-            btn.classList.toggle('active');
-
-            filtersButton.forEach(otherBtn => {
-                if (otherBtn.id.split("=")[0] === paramName && otherBtn !== btn) {
-                    otherBtn.classList.remove('active');
-                }
+    if (filtersButton) {
+        filtersButton.forEach(btn => {
+            const [paramName, paramValue] = btn.id.split("=");
+            if (params.has(paramName) && params.get(paramName) === paramValue) {
+                btn.classList.add('active');
+            }
+    
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('active');
+    
+                filtersButton.forEach(otherBtn => {
+                    if (otherBtn.id.split("=")[0] === paramName && otherBtn !== btn) {
+                        otherBtn.classList.remove('active');
+                    }
+                });
+                applyFilters();
             });
-            applyFilters();
         });
-    });
+    }
+    const checkoutBtn = document.querySelector('.checkout button');
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', () => {
+            const cartId = localStorage.getItem("cartId");
+            socket.emit("checkout", cartId);
+        });
+    }
+
+    
 }
 
 

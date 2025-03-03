@@ -89,7 +89,7 @@ class CartManager {
 
     async emptyCart(cartId) {
         try {
-            const cart = await this.findCartById(cartId);
+            const cart = await this.db.findById(cartId);
             cart.products = [];
             await cart.save();
             return cart;
